@@ -22,7 +22,7 @@ def download_or_load_CIFAR10(target_dir):
     target_file = os.path.join(target_dir, filename)
     target_folder = os.path.join(target_dir, _unpacked_CIFAR10)
     download_service.download_from_url_if_not_exists(_url_CIFAR10, target_dir)
-    file_manager.unpack_tar_gz(target_file)
+    file_manager.unpack(target_file)
     train_images, train_labels = _load_data(target_folder, 'data_batch*', _max_train_samples)
     test_images, test_labels = _load_data(target_folder, 'test_batch*', _max_test_samples)
     return Data(train_images, train_labels, test_images, test_labels)
