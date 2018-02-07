@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+__author__ = "Marcin Stachowiak"
+__version__ = "1.0"
+__email__ = "marcin.stachowiak.ms@gmail.com"
 
 def plot_images_per_class(dict, label_names):
     num_classes = len(dict)

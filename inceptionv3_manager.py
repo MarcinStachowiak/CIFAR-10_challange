@@ -3,6 +3,11 @@ import download_service
 import file_manager
 import tensorflow as tf
 import numpy as np
+import pickle
+
+__author__ = "Marcin Stachowiak"
+__version__ = "1.0"
+__email__ = "marcin.stachowiak.ms@gmail.com"
 
 _inceptionv3_url = "http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz"
 _inceptionv3_model_file = 'classify_image_graph_def.pb'
@@ -36,25 +41,3 @@ class Inception:
         output_values = self.session.run(output_layer_name, feed_dict={input_layer_name: input_data})
         output_values = np.squeeze(output_values)
         return output_values
-
-
-def _calculate_transfer_values_for_image(model, image):
-    return model.calculate(model.tensor_input_image_layer, model.tensor_transfer_layer, image)
-
-
-def calculate_transfer_values_for_images(model, images):
-    images_count = len(images)
-    output_values = []
-    for i in range(images_count):
-        print('Calculating transfer values for %d/%d image' % (i, images_count))
-        output_values.append(_calculate_transfer_values_for_image(model, images[i]))
-    return np.array(output_values)
-
-
-def calculate_or_load_transfer_values_for_images(model, images, path_to_csv):
-    if file_manager.check_if_file_exists(path_to_csv):
-        data = np.genfromtxt(path_to_csv, delimiter=',')
-    else:
-        data = calculate_transfer_values_for_images(model, images)
-        np.savetxt(path_to_csv, data, delimiter=',')
-    return data

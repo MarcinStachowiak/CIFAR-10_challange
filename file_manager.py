@@ -2,6 +2,10 @@ import os
 import tarfile
 import pickle
 
+__author__ = "Marcin Stachowiak"
+__version__ = "1.0"
+__email__ = "marcin.stachowiak.ms@gmail.com"
+
 def check_if_file_exists(path):
     return(os.path.exists(path))
 

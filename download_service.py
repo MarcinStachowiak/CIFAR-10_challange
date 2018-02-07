@@ -3,6 +3,10 @@ import file_manager
 import os
 import sys
 
+__author__ = "Marcin Stachowiak"
+__version__ = "1.0"
+__email__ = "marcin.stachowiak.ms@gmail.com"
+
 def _download_from_url(source_url,target_dir):
     _, filename = os.path.split(source_url)
     target_file=os.path.join(target_dir,filename)
@@ -34,3 +38,4 @@ def download_from_url_if_not_exists(source_url,target_dir):
         _download_from_url(source_url,target_dir)
     else:
         print('File %s already exists.' % target_file)
+
