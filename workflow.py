@@ -29,7 +29,7 @@ image_service.plot_images_per_class(dict, cifar10_manager.get_class_names())
 # Feature extraction
 feature_extractor = FearureImageExtractor(data.train_x, data.test_x)
 if transfer_values_features:
-    #Using transfer leatning and Inception v3 model
+    # Using transfer leatning and Inception v3 model
     model = inceptionv3_manager.download_or_load_Inceptionv3('inception')
     (features_train_x, features_test_x) = feature_extractor.perform_transfer_values_extraction(model)
 else:
@@ -46,7 +46,8 @@ if use_ensemble:
     # Using ensemble: Boosting and Voting
     voting_model = EnsembleVotingModel(features_train_x, data.train_y_cls) \
         .with_SVM_model() \
-        .with_RandomForest_AdaBoost_model(2)\
+        .with_RandomForest_AdaBoost_model(5)\
+        .with_LogisticRegression_AdaBoost_model(5)\
         .train()
     predicted_cls = voting_model.predict(features_test_x)
 else:

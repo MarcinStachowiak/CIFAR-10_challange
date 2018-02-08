@@ -14,23 +14,24 @@ class EnsembleVotingModel:
     """
     Class represents model for ensemble voting algorithm.
     """
-    _models = []
+
 
     def __init__(self, X, Y):
         self._X = X
         self._Y = Y
+        self._models = []
 
-    def with_SVM_model(self, n_estimators=2):
+    def with_SVM_model(self):
         estimatior = SVC(kernel='rbf')
         self._models.append(('svm', estimatior))
         return self
 
-    def with_RandomForest_model(self, n_estimators=2):
+    def with_RandomForest_model(self):
         estimatior = RandomForestClassifier(random_state=1)
         self._models.append(('rf', estimatior))
         return self
 
-    def with_LogisticRegression(self, n_estimators=2):
+    def with_LogisticRegression(self):
         estimatior = LogisticRegression(random_state=1)
         self._models.append(('lr', estimatior))
         return self
