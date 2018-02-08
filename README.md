@@ -1,6 +1,7 @@
 # CIFAR-10_challange
 First steps:
 ```
+virtualenv venv
 pip install -r requirements.txt 
 python workflow.py
 ```
