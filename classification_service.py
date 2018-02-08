@@ -78,7 +78,7 @@ class NeuralNetworkModel:
         self._display_step = display_step
         self._n_hidden_1 = n_hidden_1
         self._num_input = X.shape[1]
-        self._num_classes = np.unique(Y)
+        self._num_classes = Y.shape[1]
 
     def predict(self, X):
         return self._session.run(self._prediction, feed_dict={self._X_p: X})
@@ -132,19 +132,20 @@ class NeuralNetworkModel:
         # Initialize the variables (i.e. assign their default value)
         init = tf.global_variables_initializer()
 
-        with tf.Session() as sess:
-            sess.run(init)
-            self._session = sess
+        self._session = tf.Session()
+        self._session.run(init)
 
-            for step in range(1, self._num_steps + 1):
-                batch_x, batch_y = self._random_batch_data(self._X, self._Y)
-                # Run optimization op (backprop)
-                sess.run(self._train_op, feed_dict={self._X_p: batch_x, self._Y_p: batch_y})
-                if step % self._display_step == 0 or step == 1:
-                    # Calculate batch loss and accuracy
-                    loss, acc = sess.run([self._loss_op, self._accuracy],
-                                         feed_dict={self._X_p: batch_x, self._Y_p: batch_y})
-                    print("Step " + str(step) + ", Minibatch Loss= " + \
-                          "{:.4f}".format(loss) + ", Training Accuracy= " + \
-                          "{:.3f}".format(acc))
-            print("Optimization Finished!")
+        for step in range(1, self._num_steps + 1):
+            batch_x, batch_y = self._random_batch_data(self._X, self._Y)
+            # Run optimization op (backprop)
+            self._session.run(self._train_op, feed_dict={self._X_p: batch_x, self._Y_p: batch_y})
+            if step % self._display_step == 0 or step == 1:
+                # Calculate batch loss and accuracy
+                loss, acc = self._session.run([self._loss_op, self._accuracy],
+                                              feed_dict={self._X_p: batch_x, self._Y_p: batch_y})
+                print("Step " + str(step) + ", Minibatch Loss= " + \
+                      "{:.4f}".format(loss) + ", Training Accuracy= " + \
+                      "{:.3f}".format(acc))
+        print("Optimization Finished!")
+
+        return self

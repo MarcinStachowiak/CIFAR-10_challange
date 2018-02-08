@@ -10,4 +10,4 @@ def print_full_metrics(y_true, y_pred):
     print('Matthews correlation coefficient (MCC): %f' % matthews_corrcoef(y_true, y_pred))
     print('Accuracy: %f' % accuracy_score(y_true, y_pred))
     print('Confusion Matrix:')
-    confusion_matrix(y_true, y_pred)
+    print(confusion_matrix(y_true, y_pred))
