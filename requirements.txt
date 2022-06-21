@@ -10,7 +10,7 @@ idna==2.6
 mahotas==1.4.4
 Markdown==2.6.11
 matplotlib==2.1.2
-numpy==1.14.0
+numpy==1.22.0
 prettytensor==0.7.4
 protobuf==3.5.1
 pyparsing==2.2.0
